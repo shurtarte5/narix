@@ -22,14 +22,16 @@ class AuthCubit extends Cubit<AuthState> {
   final SecureStorage _storage;
 
   Future<void> checkAuth() async {
-    final token = await _storage.readToken();
-    if (token != null) {
-      // Token exists — emit authenticated with minimal entity.
-      // /auth/me can enrich this in a future iteration.
-      emit(const AuthAuthenticated(
-        UserEntity(id: '', email: '', fullName: '', role: UserRole.owner),
-      ));
-    } else {
+    try {
+      final token = await _storage.readToken();
+      if (token != null) {
+        emit(const AuthAuthenticated(
+          UserEntity(id: '', email: '', fullName: '', role: UserRole.owner),
+        ));
+      } else {
+        emit(const AuthUnauthenticated());
+      }
+    } catch (_) {
       emit(const AuthUnauthenticated());
     }
   }

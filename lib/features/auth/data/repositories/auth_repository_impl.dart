@@ -63,6 +63,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   String _parseDioError(DioException e) {
+    // ignore: avoid_print
+    print('[AuthRepo] DioException type=${e.type} status=${e.response?.statusCode} msg=${e.message} error=${e.error}');
     final data = e.response?.data;
     if (data is Map && data['detail'] != null) return data['detail'].toString();
     switch (e.response?.statusCode) {

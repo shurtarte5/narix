@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import '../network/auth_interceptor.dart';
 import '../network/dio_client.dart';
 import '../storage/secure_storage.dart';
+import '../../features/auth/data/datasources/auth_remote_datasource.dart';
 import '../../features/auth/data/datasources/auth_remote_datasource_impl.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
@@ -23,7 +24,7 @@ void configureDependencies() {
   sl.registerLazySingleton(() => buildDio(sl()));
 
   // DataSources
-  sl.registerLazySingleton(() => AuthRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(sl()));
 
   // Repositories
   sl.registerLazySingleton<AuthRepository>(
