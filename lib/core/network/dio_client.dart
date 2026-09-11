@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'auth_interceptor.dart';
 
-const _baseUrl = 'http://localhost:8000';
+// IP local de la Mac que corre el backend (misma red WiFi que el celular).
+// 'localhost' no funciona desde un dispositivo físico: apunta al propio teléfono.
+const _baseUrl = 'http://192.168.0.3:8000';
 
 Dio buildDio(AuthInterceptor authInterceptor) {
   final dio = Dio(
